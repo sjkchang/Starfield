@@ -1,16 +1,28 @@
 //your code here
-NormalParticle star = new NormalParticle(400, 400);
+NormalParticle[] star; //= new NormalParticle(400, 400);
 void setup()
 {
 	//your code here
 	size(800,800);
 	background(0);
+	noStroke();
+	star = new NormalParticle[10000];
+	for(int i = 0; i < star.length; i++)
+ 		{
+ 			star[i] = new NormalParticle(400, 400);
+ 		}
 }
 void draw()
 {
 	//your code here
-	star.show();
-	star.move();
+	background(0);
+	for(int i = 0; i < star.length; i++)
+	{
+	//background(0);
+	star[i].show();
+	star[i].move();
+	}
+
 
 }
 class NormalParticle
@@ -29,12 +41,15 @@ class NormalParticle
 
 	void move()
 	{
-		Math.cos(dAngle)*dSpeed;
-		Math.sin(dAngle)*dSpeed;
+		myX = myX + (Math.cos(dAngle)*dSpeed);
+		myY = myY + (Math.sin(dAngle)*dSpeed);
+		//System.out.println(Math.cos(dAngle)*dSpeed);
+		//System.out.println(Math.sin(dAngle)*dSpeed);
 	}
 	void show()
 	{
-		ellipse(myX, myY, 30, 30);
+		fill(myColor);
+		ellipse((int)myX, (int)myY, 5, 5);
 	}
 }
 interface Particle
