@@ -1,26 +1,27 @@
 //your code here
-NormalParticle[] star; //= new NormalParticle(400, 400);
-void setup()
+
+Particle[] particles; //= new NormalParticle(400, 400);
+public void setup()
 {
 	//your code here
 	size(800,800);
 	background(0);
 	noStroke();
-	star = new NormalParticle[10000];
-	for(int i = 0; i < star.length; i++)
+	particles = new Particle[10000];
+	for(int i = 0; i < particles.length; i++)
  		{
- 			star[i] = new NormalParticle(400, 400);
+ 			particles[i] = new Particle(400, 400);
  		}
+ 	particles[0] = new OddballParticle(400, 400);
 }
 void draw()
-{
-	//your code here
+{	//your code here
 	background(0);
-	for(int i = 0; i < star.length; i++)
+	for(int i = 0; i < particles.length; i++)
 	{
 	//background(0);
-	star[i].show();
-	star[i].move();
+	particles[i].show();
+	particles[i].move();
 	}
 
 
@@ -39,14 +40,14 @@ class NormalParticle
 		dAngle = Math.PI*2*Math.random();
 	}
 
-	void move()
+	public void move()
 	{
 		myX = myX + (Math.cos(dAngle)*dSpeed);
 		myY = myY + (Math.sin(dAngle)*dSpeed);
 		//System.out.println(Math.cos(dAngle)*dSpeed);
 		//System.out.println(Math.sin(dAngle)*dSpeed);
 	}
-	void show()
+	public void show()
 	{
 		fill(myColor);
 		ellipse((int)myX, (int)myY, 5, 5);
@@ -55,13 +56,34 @@ class NormalParticle
 interface Particle
 {
 	//your code here
+	public void show();
+	public void move();
+	
 }
-class OddballParticle //uses an interface
+class OddballParticle implements Particle //uses an interface
 {
 	//your code here
+	int myX, myY;
+	OddballParticle(int x, int y)
+	{
+		myX = x;
+		myY = y;
+	}
+	public void show() 
+	{
+		fill(255);
+		rect(myX, myY, 100, 100);
+	}
+	public void move() 
+	{
+		
+	}
 }
-class JumboParticle //uses inheritance
+class JumboParticle //extends NormalParticle//uses inheritance
 {
-	//your code here
+	void show()
+	{
+		//ellipse(myX, myY, 30, 30);
+	}
 }
 
