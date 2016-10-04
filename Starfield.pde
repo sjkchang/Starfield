@@ -7,7 +7,7 @@ void setup()
 	size(800,800);
 	background(0);
 	noStroke();
-	particles = new Particle[5000];
+	particles = new Particle[10000];
 	for(int i = 0; i < particles.length; i++)
  		{
  			particles[i] = new NormalParticle(400, 400);
@@ -34,11 +34,11 @@ class NormalParticle implements Particle
 	double myX, myY, dSpeed, dAngle;
 	NormalParticle(int x, int y)
 	{
-		myColor = color((int)(Math.random()*256),(int)(Math.random()*256), (int)(Math.random()*256));
+		myColor = color( (int)(Math.random()*40) , (int)(Math.random()*56), (int)(Math.random()*156));
 			
 		myX = x;
 		myY = y;
-		dSpeed = Math.random()*(-8);
+		dSpeed = Math.random()*5 + 1;
 		dAngle = Math.PI*2*Math.random();
 	}
 
@@ -46,12 +46,16 @@ class NormalParticle implements Particle
 	{
 		myX = myX + (Math.cos(dAngle)*dSpeed);
 		myY = myY + (Math.sin(dAngle)*dSpeed);
+		dAngle = dAngle + .1;
+		if(mousePressed)
+		{
+			dAngle = dAngle - .2;
+		}
+		
 		if((Math.abs(myX) > 800) && (Math.abs(myY) > 800))
 		{
-			myX = (Math.random()* 80) + 360;
-			myY = (Math.random()* 80) + 360;
-			dSpeed = Math.random()*8 + 1;
-			dAngle = Math.PI*2*Math.random();
+			//myX = (Math.random()* 80) + 360;
+			//myY = (Math.random()* 80) + 360;
 		}
 		
 
@@ -60,7 +64,7 @@ class NormalParticle implements Particle
 	}
 	public void show()
 	{
-		fill(255);
+		fill(myColor);
 		ellipse((int)myX, (int)myY, 5, 5);
 	}
 }
